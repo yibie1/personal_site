@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yibeltal Simachew — CV</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5pt;
+    color: #1a1a2e;
+    background: #fff;
+    line-height: 1.5;
+  }
+
+  /* ── print ── */
+  @media print {
+    body { font-size: 9pt; }
+    .no-print { display: none !important; }
+    @page { margin: 10mm 12mm; size: A4; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; }
+    a { color: inherit !important; text-decoration: none !important; }
+
+    /* force background colors and images to print */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+  }
+
+  /* ── print button ── */
+  .no-print {
+    position: fixed; top: 20px; right: 20px; z-index: 999;
+    display: flex; gap: 10px;
+  }
+  .no-print button {
+    padding: 10px 22px;
+    background: #2506ad; color: #fff;
+    border: none; border-radius: 6px;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 14px rgba(37,6,173,0.35);
+  }
+  .no-print button:hover { background: #1a047e; }
+
+  /* ── page wrapper ── */
+  .page {
+    max-width: 210mm;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  }
+
+  /* ══════════════════════════════
+     HEADER / HERO
+  ══════════════════════════════ */
+  .cv-header-wrap {
+    position: relative;
+    background: linear-gradient(120deg, #0a1628 0%, #0d2d5e 40%, #0e4d8a 70%, #0891b2 100%);
+    overflow: hidden;
+  }
+  /* subtle dot pattern overlay */
+  .cv-header-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+  /* cyan glow blobs */
+  .cv-header-wrap::after {
+    content: "";
+    position: absolute;
+    top: -30px; right: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(6,182,212,0.25), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cv-header {
+    position: relative;
+    z-index: 1;
+    color: #fff;
+    padding: 26px 36px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+  .cv-header-left { flex: 1; }
+  .cv-name {
+    font-size: 22pt;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    color: #fff;
+  }
+  .cv-title {
+    font-size: 9.5pt;
+    font-weight: 500;
+    color: rgba(186,230,253,0.9);
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .cv-tagline {
+    font-size: 8pt;
+    color: rgba(186,230,253,0.6);
+    margin-top: 7px;
+    max-width: 400px;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  /* wave SVG separator */
+  .cv-wave {
+    display: block;
+    width: 100%;
+    height: 32px;
+    margin-top: -1px;
+  }
+  .cv-header-right {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+    flex-shrink: 0;
+  }
+  .cv-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 8.5pt;
+    color: rgba(186,230,253,0.9);
+    font-weight: 400;
+  }
+  .cv-contact-item .icon {
+    width: 16px; height: 16px;
+    background: rgba(6,182,212,0.25);
+    border: 1px solid rgba(6,182,212,0.4);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 7pt;
+    flex-shrink: 0;
+  }
+  .cv-contact-item a { color: rgba(186,230,253,0.9); text-decoration: none; }
+
+  /* ══════════════════════════════
+     BODY LAYOUT — 2 columns
+  ══════════════════════════════ */
+  .cv-body {
+    display: grid;
+    grid-template-columns: 1fr 2.2fr;
+  }
+
+  /* ── LEFT SIDEBAR ── */
+  .cv-sidebar {
+    background: #f7f8ff;
+    padding: 28px 22px;
+    border-right: 1px solid #e8eaf6;
+  }
+
+  /* ── RIGHT MAIN ── */
+  .cv-main {
+    padding: 28px 32px;
+  }
+
+  /* ══════════════════════════════
+     SECTION TITLES
+  ══════════════════════════════ */
+  .section-title {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #0369a1;
+    border-bottom: 2px solid #0891b2;
+    padding-bottom: 4px;
+    margin-bottom: 14px;
+    margin-top: 22px;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ══════════════════════════════
+     SKILLS
+  ══════════════════════════════ */
+  .skill-category { margin-bottom: 14px; }
+  .skill-category-name {
+    font-size: 8pt;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .skill-pill {
+    background: #e0f2fe;
+    color: #0369a1;
+    font-size: 7.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 20px;
+    border: 1px solid #bae6fd;
+  }
+
+  /* ══════════════════════════════
+     EDUCATION (sidebar)
+  ══════════════════════════════ */
+  .edu-item { margin-bottom: 14px; }
+  .edu-degree {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.3;
+  }
+  .edu-school {
+    font-size: 8pt;
+    color: #0369a1;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .edu-year {
+    font-size: 7.5pt;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  /* ══════════════════════════════
+     CERTIFICATION (sidebar)
+  ══════════════════════════════ */
+  .cert-item {
+    background: linear-gradient(135deg, #001a5e, #003087);
+    border-radius: 8px;
+    padding: 12px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .cert-name {
+    font-size: 8pt;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+  }
+  .cert-issuer {
+    font-size: 7.5pt;
+    color: #e8a020;
+    font-weight: 600;
+    margin-top: 3px;
+  }
+  .cert-date {
+    font-size: 7pt;
+    color: rgba(255,255,255,0.6);
+    margin-top: 3px;
+  }
+
+  /* ══════════════════════════════
+     LANGUAGES (sidebar)
+  ══════════════════════════════ */
+  .lang-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 7px;
+  }
+  .lang-name { font-size: 8.5pt; font-weight: 500; color: #333; }
+  .lang-level {
+    font-size: 7.5pt;
+    color: #0369a1;
+    font-weight: 600;
+    background: #e0f2fe;
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+
+  /* ══════════════════════════════
+     SUMMARY
+  ══════════════════════════════ */
+  .summary-text {
+    font-size: 9pt;
+    color: #444;
+    line-height: 1.7;
+    font-weight: 400;
+    background: #f0f9ff;
+    padding: 12px 14px;
+    border-radius: 0 6px 6px 0;
+    border-left: 3px solid #0891b2;
+  }
+
+  /* ══════════════════════════════
+     EXPERIENCE
+  ══════════════════════════════ */
+  .exp-item { margin-bottom: 20px; position: relative; }
+  .exp-item:last-child { margin-bottom: 0; }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .exp-company-name {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .exp-role {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #0369a1;
+    margin-top: 1px;
+  }
+  .exp-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .exp-date {
+    font-size: 7.5pt;
+    color: #888;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .exp-type-tag {
+    display: inline-block;
+    font-size: 7pt;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-top: 3px;
+  }
+  .tag-fulltime  { background: #e8f5e9; color: #2e7d32; }
+  .tag-freelance { background: #fff3e0; color: #e65100; }
+  .tag-intern    { background: #e8eaf6; color: #2506ad; }
+
+  .exp-bullets {
+    margin-top: 7px;
+    padding-left: 14px;
+  }
+  .exp-bullets li {
+    font-size: 8.5pt;
+    color: #444;
+    margin-bottom: 3px;
+    line-height: 1.55;
+    list-style: disc;
+  }
+  .exp-bullets li strong { color: #1a1a2e; font-weight: 600; }
+
+  .exp-tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 7px;
+  }
+  .exp-tech-tag {
+    font-size: 7pt;
+    font-weight: 600;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 1px 7px;
+    border-radius: 10px;
+    border: 1px solid #bae6fd;
+  }
+
+  /* ══════════════════════════════
+     PROJECTS
+  ══════════════════════════════ */
+  .proj-item {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .proj-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .proj-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .proj-name {
+    font-size: 9pt;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .proj-link {
+    font-size: 7.5pt;
+    color: #0369a1;
+    text-decoration: none;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .proj-desc {
+    font-size: 8.5pt;
+    color: #555;
+    margin-top: 3px;
+    line-height: 1.55;
+  }
+  .proj-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 5px;
+  }
+  .proj-stack span {
+    font-size: 7pt;
+    font-weight: 600;
+    color: #0369a1;
+    background: #e0f2fe;
+    padding: 1px 7px;
+    border-radius: 10px;
+  }
+
+  /* ══════════════════════════════
+     DIVIDER
+  ══════════════════════════════ */
+  .divider {
+    height: 1px;
+    background: #e8eaf6;
+    margin: 6px 0 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Print button (hidden when printing) -->
+<div class="no-print">
+  <button onclick="window.print()">&#128438; Save as PDF / Print</button>
+</div>
+
+<div class="page">
+
+  <!-- ══ HEADER ══ -->
+  <div class="cv-header-wrap">
+    <div class="cv-header">
+      <div class="cv-header-left">
+        <div class="cv-name">Yibeltal Simachew</div>
+        <div class="cv-title">Full-Stack Developer &nbsp;·&nbsp; Mobile App Engineer &nbsp;·&nbsp; QA Tester</div>
+        <div class="cv-tagline">
+          Software engineer with 4+ years of experience building web &amp; mobile applications.
+          ISTQB CTFL certified. Passionate about clean code and delivering production-ready software.
+        </div>
+      </div>
+      <div class="cv-header-right">
+        <div class="cv-contact-item">
+          <span class="icon">✉</span>
+          <a href="mailto:yibieone@gmail.com">yibieone@gmail.com</a>
+        </div>
+        <div class="cv-contact-item">
+          <span class="icon">☎</span>
+          +251 923 172 044
+        </div>
+        <div class="cv-contact-item">
+          <span class="icon">📍</span>
+          Addis Ababa, Ethiopia
+        </div>
+      </div>
+    </div>
+    <!-- wave separator -->
+    <svg class="cv-wave" viewBox="0 0 1200 32" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,16 C150,32 350,0 600,16 C850,32 1050,0 1200,16 L1200,32 L0,32 Z"
+            fill="#ffffff"/>
+    </svg>
+  </div>
+
+  <!-- ══ BODY ══ -->
+  <div class="cv-body">
+
+    <!-- ════ LEFT SIDEBAR ════ -->
+    <div class="cv-sidebar">
+
+      <!-- Skills -->
+      <div class="section-title">Technical Skills</div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Mobile</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Flutter</span>
+          <span class="skill-pill">Dart</span>
+          <span class="skill-pill">React Native</span>
+          <span class="skill-pill">Java (Android)</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Frontend</div>
+        <div class="skill-pills">
+          <span class="skill-pill">React</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">HTML5</span>
+          <span class="skill-pill">CSS3 / SASS</span>
+          <span class="skill-pill">Bootstrap</span>
+          <span class="skill-pill">Tailwind CSS</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Backend</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Node.js</span>
+          <span class="skill-pill">PHP / Laravel</span>
+          <span class="skill-pill">Python / Django</span>
+          <span class="skill-pill">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Databases</div>
+        <div class="skill-pills">
+          <span class="skill-pill">MySQL</span>
+          <span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">Firebase</span>
+          <span class="skill-pill">SQLite</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">QA &amp; Testing</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Manual Testing</span>
+          <span class="skill-pill">Test Case Design</span>
+          <span class="skill-pill">Bug Reporting</span>
+          <span class="skill-pill">Regression Testing</span>
+          <span class="skill-pill">SDLC</span>
+        </div>
+      </div>
+
+      <div class="skill-category">
+        <div class="skill-category-name">Tools</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Git / GitHub</span>
+          <span class="skill-pill">VS Code</span>
+          <span class="skill-pill">WordPress</span>
+          <span class="skill-pill">Mapbox</span>
+          <span class="skill-pill">Chapa API</span>
+          <span class="skill-pill">Stripe API</span>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="section-title">Education</div>
+
+      <div class="edu-item">
+        <div class="edu-degree">BSc Software Engineering</div>
+        <div class="edu-school">Debre Markos University (DMU)</div>
+        <div class="edu-year">2017 – 2021 &nbsp;·&nbsp; Debre Markos, Ethiopia</div>
+      </div>
+
+      <!-- Certification -->
+      <div class="section-title">Certification</div>
+
+      <div class="cert-item">
+        <div class="cert-name">ASTQB Certified Tester<br>Foundation Level (CTFL)</div>
+        <div class="cert-issuer">ISTQB — International Software<br>Testing Qualifications Board</div>
+        <div class="cert-date">Certified: June 27, 2023</div>
+      </div>
+
+      <!-- Languages -->
+      <div class="section-title">Languages</div>
+
+      <div class="lang-item">
+        <span class="lang-name">Amharic</span>
+        <span class="lang-level">Native</span>
+      </div>
+      <div class="lang-item">
+        <span class="lang-name">English</span>
+        <span class="lang-level">Professional</span>
+      </div>
+
+    </div><!-- end sidebar -->
+
+    <!-- ════ RIGHT MAIN ════ -->
+    <div class="cv-main">
+
+      <!-- Professional Summary -->
+      <div class="section-title">Professional Summary</div>
+      <div class="summary-text">
+        Software Engineering graduate with <strong>4+ years of professional experience</strong> delivering
+        full-stack web applications and cross-platform mobile apps for real-world clients. Currently working
+        at <strong>Ethiostars</strong> as a Full-Stack Developer and QA Tester, where I build and test
+        production web systems. I hold an <strong>ISTQB CTFL certification</strong> and have shipped
+        multiple live products including an Ethiopian hotel booking platform, an e-commerce marketplace,
+        and an offline-first mobile shop management app. I thrive in fast-paced environments and take
+        ownership of projects from architecture to deployment.
+      </div>
+
+      <!-- Work Experience -->
+      <div class="section-title" style="margin-top:20px">Work Experience</div>
+
+      <!-- Ethiostars -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company-name">Ethiostars</div>
+            <div class="exp-role">Full-Stack Developer &amp; QA Tester</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Dec 2022 – Present</div>
+            <span class="exp-type-tag tag-fulltime">Full-Time</span>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Build and maintain full-stack web apps for clients using <strong>React</strong> and <strong>Node.js</strong></li>
+          <li>Design RESTful APIs and integrate third-party payment services</li>
+          <li>Write and execute test cases, perform regression testing and defect tracking</li>
+          <li>Collaborate with teams to deliver projects on time; participate in code reviews</li>
+        </ul>
+        <div class="exp-tech-row">
+          <span class="exp-tech-tag">React</span><span class="exp-tech-tag">Node.js</span>
+          <span class="exp-tech-tag">MySQL</span><span class="exp-tech-tag">REST APIs</span>
+          <span class="exp-tech-tag">QA Testing</span><span class="exp-tech-tag">Git</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Self Employed -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company-name">Freelance / Self-Employed</div>
+            <div class="exp-role">Full-Stack Developer</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">May 2021 – Dec 2022</div>
+            <span class="exp-type-tag tag-freelance">Freelance</span>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Built e-commerce platforms, management systems, and mobile apps for clients</li>
+          <li>Developed cross-platform apps using <strong>Flutter</strong> and Dart</li>
+          <li>Managed full project lifecycle from requirements to deployment</li>
+        </ul>
+        <div class="exp-tech-row">
+          <span class="exp-tech-tag">Flutter</span><span class="exp-tech-tag">React</span>
+          <span class="exp-tech-tag">Laravel</span><span class="exp-tech-tag">Django</span>
+          <span class="exp-tech-tag">MySQL</span><span class="exp-tech-tag">WordPress</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- RCNDC -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company-name">RCNDC</div>
+            <div class="exp-role">Web &amp; Mobile App Developer</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Feb 2021 – May 2021</div>
+            <span class="exp-type-tag tag-intern">Internship</span>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Integrated <strong>Mapbox SDK</strong> and real-time <strong>location tracking</strong> into a delivery app</li>
+          <li>Developed a <strong>WordPress CMS blog site</strong> for the organisation</li>
+        </ul>
+        <div class="exp-tech-row">
+          <span class="exp-tech-tag">Flutter</span><span class="exp-tech-tag">Mapbox</span>
+          <span class="exp-tech-tag">WordPress</span><span class="exp-tech-tag">PHP</span>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Walta TV -->
+      <div class="exp-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company-name">Walta TV</div>
+            <div class="exp-role">Mobile App Developer</div>
+          </div>
+          <div class="exp-meta">
+            <div class="exp-date">Jul 2019 – Aug 2019</div>
+            <span class="exp-type-tag tag-intern">Internship</span>
+          </div>
+        </div>
+        <ul class="exp-bullets">
+          <li>Contributed to an <strong>Android TV streaming app</strong> for live media content</li>
+          <li>Built the UI for a <strong>camera booking web system</strong> for the production team</li>
+        </ul>
+        <div class="exp-tech-row">
+          <span class="exp-tech-tag">Android</span><span class="exp-tech-tag">Java</span>
+          <span class="exp-tech-tag">HTML/CSS</span><span class="exp-tech-tag">JavaScript</span>
+        </div>
+      </div>
+
+      <!-- Key Projects -->
+      <div class="section-title" style="margin-top:20px">Key Projects</div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">EthioStays — Hotel Booking Platform</div>
+          <a class="proj-link" href="https://ethiostays.vercel.app">ethiostays.vercel.app</a>
+        </div>
+        <div class="proj-desc">Full-stack Ethiopian hotel booking platform with Chapa &amp; Stripe payments, vendor portal, and admin dashboard.</div>
+        <div class="proj-stack">
+          <span>React</span><span>Node.js</span><span>MySQL</span><span>Chapa</span><span>Stripe</span>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">Zembile — E-Commerce Marketplace</div>
+          <a class="proj-link" href="https://zembile.vercel.app">zembile.vercel.app</a>
+        </div>
+        <div class="proj-desc">Ethiopian marketplace for authentic products with cart, Chapa payment, order tracking, and real-time admin analytics.</div>
+        <div class="proj-stack">
+          <span>React</span><span>Tailwind CSS</span><span>Node.js</span><span>Chapa</span>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">Sukie — Offline Shop Management App</div>
+          <a class="proj-link" href="#">Android APK</a>
+        </div>
+        <div class="proj-desc">Offline-first Flutter app for small businesses — inventory, sales tracking, profit reports, and credit book.</div>
+        <div class="proj-stack">
+          <span>Flutter</span><span>Dart</span><span>SQLite</span>
+        </div>
+      </div>
+
+      <div class="proj-item">
+        <div class="proj-header">
+          <div class="proj-name">Moniro — AI Book Talk App</div>
+          <a class="proj-link" href="https://moniro.app">moniro.app</a>
+        </div>
+        <div class="proj-desc">AI book discussion app on iOS &amp; Android. Led QA testing; developed admin panel and landing page.</div>
+        <div class="proj-stack">
+          <span>Flutter</span><span>React</span><span>Node.js</span><span>QA Lead</span>
+        </div>
+      </div>
+
+    </div><!-- end main -->
+  </div><!-- end body -->
+
+</div><!-- end page -->
+
+</body>
+</html>

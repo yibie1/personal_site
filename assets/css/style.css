@@ -999,13 +999,106 @@ header .navbar ul li a:hover {
   min-height: auto;
   padding: 6rem 9% 5rem;
 }
-.work h2 {
-  color: #fff;
-  padding: 1rem;
+.work h2 { color: #fff; padding: 1rem; }
+.work .heading span { color: rgb(255, 230, 0); }
+
+/* home project grid */
+.home-proj-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+  gap: 2.2rem;
+  margin: 3rem 0 4rem;
+  flex-wrap: unset;
 }
-.work .heading span {
-  color: rgb(255, 230, 0);
+.home-proj-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(120,100,255,0.18);
+  border-radius: 1.4rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
+.home-proj-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(140,120,255,0.5);
+  box-shadow: 0 14px 36px rgba(60,40,200,0.28);
+}
+.home-proj-img {
+  position: relative;
+  height: 20rem;
+  overflow: hidden;
+  background: #111128;
+}
+.home-proj-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.home-proj-card:hover .home-proj-img img { transform: scale(1.05); }
+.home-proj-overlay {
+  position: absolute; inset: 0;
+  background: rgba(10,10,40,0.65);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s;
+}
+.home-proj-card:hover .home-proj-overlay { opacity: 1; }
+.home-proj-live {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.9rem 2rem;
+  background: #5b3fff; color: #fff;
+  border-radius: 3rem; font-size: 1.35rem; font-weight: 700;
+  font-family: "Nunito", sans-serif; text-transform: none;
+}
+.home-proj-live:hover { background: #7c5cff; }
+.home-proj-badge {
+  position: absolute; top: 1rem; left: 1rem;
+  font-size: 1.1rem; font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  padding: 0.25rem 0.9rem; border-radius: 3rem;
+  text-transform: uppercase; letter-spacing: 0.04rem;
+}
+.web-badge    { background: rgba(59,130,246,0.85); color: #fff; }
+.mobile-badge { background: rgba(16,185,129,0.85); color: #fff; }
+.home-proj-body {
+  padding: 1.8rem 2rem 2rem;
+  display: flex; flex-direction: column; gap: 0.9rem;
+  flex: 1;
+}
+.home-proj-body h3 {
+  font-size: 1.7rem; font-weight: 700; color: #e8eeff;
+  text-transform: capitalize;
+}
+.home-proj-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+}
+.home-proj-tags span {
+  font-size: 1.1rem; font-family: "Nunito", sans-serif; font-weight: 700;
+  color: #a78bfa;
+  background: rgba(91,63,255,0.12);
+  border: 1px solid rgba(91,63,255,0.25);
+  padding: 0.2rem 0.8rem; border-radius: 3rem;
+  text-transform: none;
+}
+.home-proj-body p {
+  font-size: 1.35rem; color: rgba(200,210,255,0.7);
+  font-family: "Nunito", sans-serif; font-weight: 600;
+  line-height: 1.65; text-transform: none;
+  flex: 1;
+}
+.home-proj-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  padding: 0.8rem 1.8rem; margin-top: 0.5rem;
+  background: linear-gradient(135deg, #5b3fff, #8b5cf6);
+  color: #fff; border-radius: 0.6rem;
+  font-size: 1.35rem; font-family: "Nunito", sans-serif; font-weight: 700;
+  text-transform: none; width: fit-content;
+  box-shadow: 0 3px 12px rgba(91,63,255,0.35);
+}
+.home-proj-btn:hover { background: linear-gradient(135deg, #4c35d4, #7c4fe0); }
+.home-proj-btn--green { background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 3px 12px rgba(16,185,129,0.35); }
+.home-proj-btn--green:hover { background: linear-gradient(135deg, #047857, #059669); }
 .work .box-container {
   display: flex;
   flex-wrap: wrap;

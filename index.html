@@ -18,7 +18,7 @@
 
 <!-- navbar starts -->
 <header>
-        <a href="/" class="logo"><i class="fas fa-code"></i> Yibeltal</a>
+        <a href="./index.html" class="logo"><i class="fas fa-code"></i> Yibeltal</a>
 
         <div id="menu" class="fas fa-bars"></div>
         <nav class="navbar">
@@ -325,7 +325,7 @@
         </div>
 
         <div class="resumebtn">
-          <a href="./assets/cv/YibeltalSimachewResume.pdf" class="btn" download>
+          <a href="./assets/cv/Yibeltal Simachew — CV.pdf" class="btn" download>
             <span>Download My CV</span>
             <i class="fas fa-arrow-circle-down"></i>
           </a>
@@ -643,57 +643,104 @@
 
   <h2 class="heading"><i class="fas fa-laptop-code"></i> Projects <span>Made</span></h2>
 
-  <div class="box-container">
+  <div class="box-container home-proj-grid">
 
-    <div class="box tilt">
-      <img draggable="false" src="./assets/images/efront.png" alt="EthioStays" />
-      <div class="content">
-        <div class="tag">
-          <h3>EthioStays</h3>
+    <!-- EthioStays -->
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/efront.png" alt="EthioStays"/>
+        <div class="home-proj-overlay">
+          <a href="https://ethiostays.vercel.app/" target="_blank" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
         </div>
-        <div class="desc">
-          <p>Ethiopian travel &amp; hotel booking platform — like Booking.com but built for Ethiopia.</p>
-          <div class="btns">
-            <a href="https://ethiostays.vercel.app/" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-          </div>
+        <span class="home-proj-badge web-badge">Web</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>EthioStays</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Node.js</span><span>Chapa</span><span>Stripe</span>
         </div>
+        <p>Ethiopian travel &amp; hotel booking platform — like Booking.com but built for Ethiopia.</p>
+        <a href="https://ethiostays.vercel.app/" class="home-proj-btn" target="_blank">
+          <i class="fas fa-eye"></i> View
+        </a>
       </div>
     </div>
 
-    <div class="box tilt">
-      <img draggable="false" src="./assets/images/zfront.png" alt="Zembile Marketplace" />
-      <div class="content">
-        <div class="tag">
-          <h3>Zembile Marketplace</h3>
+    <!-- Zembile -->
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/zfront.png" alt="Zembile Marketplace"/>
+        <div class="home-proj-overlay">
+          <a href="https://zembile.vercel.app/" target="_blank" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
         </div>
-        <div class="desc">
-          <p>Ethiopian e-commerce marketplace for authentic products — coffee, spices, traditional clothing &amp; more.</p>
-          <div class="btns">
-            <a href="https://zembile.vercel.app/" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-          </div>
+        <span class="home-proj-badge web-badge">Web</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Zembile Marketplace</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Tailwind</span><span>Chapa</span>
         </div>
+        <p>Ethiopian e-commerce marketplace for authentic products — coffee, spices, traditional clothing &amp; more.</p>
+        <a href="https://zembile.vercel.app/" class="home-proj-btn" target="_blank">
+          <i class="fas fa-eye"></i> View
+        </a>
       </div>
     </div>
 
-    <div class="box tilt">
-      <img draggable="false" src="./assets/images/su3.jpg" alt="Sukie Shop Management" />
-      <div class="content">
-        <div class="tag">
-          <h3>Sukie Mobile App</h3>
+    <!-- Sukie -->
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/su3.jpg" alt="Sukie Mobile App"/>
+        <div class="home-proj-overlay">
+          <a href="https://expo.dev/artifacts/eas/UobRfhuaTshikVTu9CRqN.apk" target="_blank" class="home-proj-live">
+            <i class="fab fa-android"></i> Download
+          </a>
         </div>
-        <div class="desc">
-          <p>Offline-first Flutter shop management app — inventory, sales, profits &amp; credit book.</p>
-          <div class="btns">
-            <a href="https://expo.dev/artifacts/eas/UobRfhuaTshikVTu9CRqN.apk" class="btn" target="_blank"><i class="fab fa-android"></i> APK</a>
-          </div>
+        <span class="home-proj-badge mobile-badge">Mobile</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Sukie Mobile App</h3>
+        <div class="home-proj-tags">
+          <span>Flutter</span><span>Dart</span><span>SQLite</span>
         </div>
+        <p>Offline-first shop management app — inventory, sales, profits &amp; credit book for Ethiopian businesses.</p>
+        <a href="https://expo.dev/artifacts/eas/UobRfhuaTshikVTu9CRqN.apk" class="home-proj-btn home-proj-btn--green" target="_blank">
+          <i class="fab fa-android"></i> APK
+        </a>
+      </div>
+    </div>
+
+    <!-- Zembile Admin -->
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/zadmin.png" alt="Zembile Admin"/>
+        <div class="home-proj-overlay">
+          <a href="https://zembile-admin.vercel.app/" target="_blank" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+        <span class="home-proj-badge web-badge">Web</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Zembile Admin Panel</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Recharts</span><span>Dashboard</span>
+        </div>
+        <p>Full-featured dashboard for managing the Zembile marketplace — products, orders, analytics &amp; payments.</p>
+        <a href="https://zembile-admin.vercel.app/" class="home-proj-btn" target="_blank">
+          <i class="fas fa-eye"></i> View
+        </a>
       </div>
     </div>
 
   </div>
 
   <div class="viewall">
-    <a href="/projects" class="btn">
+    <a href="./projects/index.html" class="btn">
       <span>My Works</span>
       <i class="fas fa-arrow-right"></i>
     </a>
@@ -768,7 +815,7 @@
   </div>
 
   <div class="morebtn">
-    <a href="/experience" class="btn">
+    <a href="./experience/index.html" class="btn">
       <span>View Full Experience</span>
       <i class="fas fa-arrow-right"></i>
     </a>
