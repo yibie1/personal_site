@@ -70,47 +70,66 @@ document.addEventListener('visibilitychange',
 
 
 // <!-- typed js effect starts -->
-var typed = new Typed(".typing-text", {
-    strings: ["Website development", "Flutter Mobile App development", "Wordpress CMS", "android app development", "desktop app development"],
-    loop: true,
-    typeSpeed: 50,
-    backSpeed: 25,
-    backDelay: 500,
+$(document).ready(function () {
+    if (typeof Typed !== 'undefined') {
+        new Typed(".typing-text", {
+            strings: [
+                "Mobile App Developer (Flutter & React Native)",
+                "iOS & Android App Developer",
+                "Full-Stack Web Developer",
+                "Laravel & Django Backend Developer",
+                "React & Node.js Developer",
+                "Quality Assurance Tester",
+                "WordPress CMS Developer",
+                "Database Engineer (MySQL & MongoDB)",
+            ],
+            loop: true,
+            typeSpeed: 45,
+            backSpeed: 22,
+            backDelay: 1200,
+            smartBackspace: true,
+        });
+    }
 });
 // <!-- typed js effect ends -->
 
-async function fetchData(type = "skills") {
-    let response
-    type === "skills" ?
-        response = await fetch("skills.json")
-        :
-        response = await fetch("./projects/projects.json")
-    const data = await response.json();
-    return data;
+async function fetchData() {
+    try {
+        const response = await fetch("./projects/projects.json");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return await response.json();
+    } catch (err) {
+        console.error("fetchData failed:", err);
+        return [];
+    }
 }
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.skill-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            // update active tab
+            document.querySelectorAll('.skill-tab').forEach(function (t) {
+                t.classList.remove('active');
+            });
+            this.classList.add('active');
 
-function showSkills(skills) {
-    let skillsContainer = document.getElementById("skillsContainer");
-    let skillHTML = "";
-    skills.forEach(skill => {
-        skillHTML += `
-        <div class="bar">
-              <div class="info">
-                <img src=${skill.icon} alt="skill" />
-                <span>${skill.name}</span>
-              </div>
-            </div>`
+            var cat = this.getAttribute('data-cat');
+
+            // show / hide groups
+            document.querySelectorAll('.skill-group').forEach(function (group) {
+                var match = cat === 'all' || group.getAttribute('data-group') === cat;
+                group.style.display = match ? 'block' : 'none';
+            });
+        });
     });
-    skillsContainer.innerHTML = skillHTML;
-}
+});
 
 function showProjects(projects) {
     let projectsContainer = document.querySelector("#work .box-container");
     let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
+    projects.slice(0, 4).forEach(project => {
         projectHTML += `
         <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
+      <img draggable="false" src="./assets/images/projects/${project.image}.PNG" alt="${project.name}" />
       <div class="content">
         <div class="tag">
         <h3>${project.name}</h3>
@@ -119,7 +138,6 @@ function showProjects(projects) {
           <p>${project.desc}</p>
           <div class="btns">
             <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
           </div>
         </div>
       </div>
@@ -146,12 +164,31 @@ function showProjects(projects) {
 
 }
 
-fetchData().then(data => {
-    showSkills(data);
-});
-
 fetchData("projects").then(data => {
     showProjects(data);
+});
+
+// dynamic footer year
+document.addEventListener('DOMContentLoaded', function () {
+    var el = document.getElementById('footer-year');
+    if (el) el.textContent = new Date().getFullYear();
+});
+
+// ── Skills filter tabs (static HTML, no fetch needed) ──
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.skill-tab').forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.skill-tab').forEach(function (t) {
+                t.classList.remove('active');
+            });
+            this.classList.add('active');
+            var cat = this.getAttribute('data-cat');
+            document.querySelectorAll('.skill-group').forEach(function (group) {
+                var match = cat === 'all' || group.getAttribute('data-group') === cat;
+                group.style.display = match ? 'block' : 'none';
+            });
+        });
+    });
 });
 
 // <!-- tilt js effect starts -->
@@ -171,37 +208,59 @@ function fadeOut() {
 window.onload = fadeOut;
 // pre loader end
 
-// disable developer mode
-document.onkeydown = function (e) {
-    if (e.keyCode == 123) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-        return false;
-    }
-    if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-        return false;
-    }
-}
-
-// Start of Tawk.to Live Chat
-var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+// ===== BINARY RAIN ANIMATION =====
 (function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/60df10bf7f4b000ac03ab6a8/1f9jlirg6';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-})();
-// End of Tawk.to Live Chat
+    const canvas = document.getElementById('binaryCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
+    function resize() {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    // colour palette: mix of green matrix + blue dev tones
+    const colours = [
+        'rgba(0,255,100,0.85)',
+        'rgba(0,200,255,0.75)',
+        'rgba(80,140,255,0.7)',
+        'rgba(0,255,160,0.6)',
+    ];
+
+    function draw() {
+        // semi-transparent black fade trail
+        ctx.fillStyle = 'rgba(6, 8, 24, 0.18)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.font = fontSize + 'px monospace';
+
+        columns = Math.floor(canvas.width / fontSize);
+        while (drops.length < columns) drops.push(Math.random() * -100);
+
+        for (let i = 0; i < columns; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillStyle = colours[Math.floor(Math.random() * colours.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(draw, 45);
+})();
+// ===== END BINARY RAIN =====
+
+// disable developer mode removed - allows normal browser usage
 
 /* ===== SCROLL REVEAL ANIMATION ===== */
 const srtop = ScrollReveal({
@@ -232,9 +291,7 @@ srtop.reveal('.about .content .box-container', { delay: 200 });
 srtop.reveal('.about .content .resumebtn', { delay: 200 });
 
 
-/* SCROLL SKILLS */
-srtop.reveal('.skills .container', { interval: 200 });
-srtop.reveal('.skills .container .bar', { delay: 400 });
+/* SCROLL SKILLS — handled by CSS keyframe animation on .skill-card */
 
 /* SCROLL EDUCATION */
 srtop.reveal('.education .box', { interval: 200 });
