@@ -1,0 +1,18 @@
+# GitHub Pages Configuration
+# This enables clean URLs (removes .html extensions)
+
+# Clean URLs
+permalink: pretty
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - node_modules/
+  - vendor/
+  - .htaccess
+
+# Keep these files
+include:
+  - .htaccess
+  - _config.yml
+

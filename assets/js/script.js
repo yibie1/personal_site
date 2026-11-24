@@ -31,10 +31,29 @@ $(document).ready(function () {
 
     // smooth scrolling
     $('a[href*="#"]').on('click', function (e) {
+        // Don't prevent if the link is to an external page
+        if (this.hostname !== window.location.hostname) return;
+        
         e.preventDefault();
-        $('html, body').animate({
-            scrollTop: $($(this).attr('href')).offset().top,
-        }, 500, 'linear')
+        const target = $(this).attr('href');
+        
+        // Handle links from other pages (like projects page)
+        if (target.includes('/')) {
+            window.location.href = target;
+            return;
+        }
+        
+        // Smooth scroll to section
+        const targetElement = $(target);
+        if (targetElement.length) {
+            $('html, body').animate({
+                scrollTop: targetElement.offset().top,
+            }, 600, 'linear');
+            
+            // Close mobile menu if open
+            $('#menu').removeClass('fa-times');
+            $('.navbar').removeClass('nav-toggle');
+        }
     });
 
     // <!-- emailjs to mail contact form data -->
@@ -116,57 +135,146 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // show / hide groups
             document.querySelectorAll('.skill-group').forEach(function (group) {
-                var match = cat === 'all' || group.getAttribute('data-group') === cat;
-                group.style.display = match ? 'block' : 'none';
+                if (cat === 'all') {
+                    // Show all groups
+                    group.style.display = 'block';
+                } else {
+                    // Show only matching group
+                    var match = group.getAttribute('data-group') === cat;
+                    group.style.display = match ? 'block' : 'none';
+                }
             });
         });
+    });
+    
+    // Show all skills by default on load
+    document.querySelectorAll('.skill-group').forEach(function (group) {
+        group.style.display = 'block';
     });
 });
 
 function showProjects(projects) {
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 4).forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="./assets/images/projects/${project.image}.PNG" alt="${project.name}" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
+    let projectsContainer = document.querySelector("#work .home-proj-grid");
+    if (!projectsContainer) {
+        console.warn("Projects container not found");
+        return;
+    }
+    
+    // Clear any existing content
+    projectsContainer.innerHTML = "";
+    
+    // EthioStays
+    const ethioStaysCard = `
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/placeholder-web.svg" alt="EthioStays" loading="lazy"/>
+        <div class="home-proj-overlay">
+          <a href="https://ethiostays.vercel.app/" target="_blank" rel="noopener noreferrer" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
         </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-          </div>
-        </div>
+        <span class="home-proj-badge web-badge">Web</span>
       </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
-
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
+      <div class="home-proj-body">
+        <h3>EthioStays</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Node.js</span><span>Chapa</span><span>Stripe</span>
+        </div>
+        <p>Ethiopian travel &amp; hotel booking platform — like Booking.com but built for Ethiopia.</p>
+        <a href="https://ethiostays.vercel.app/" class="home-proj-btn" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-eye"></i> View
+        </a>
+      </div>
+    </div>`;
+    
+    // Zembile
+    const zembileCard = `
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/placeholder-web.svg" alt="Zembile Marketplace" loading="lazy"/>
+        <div class="home-proj-overlay">
+          <a href="https://zembile.vercel.app/" target="_blank" rel="noopener noreferrer" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+        <span class="home-proj-badge web-badge">Web</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Zembile Marketplace</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Tailwind</span><span>Chapa</span>
+        </div>
+        <p>Ethiopian e-commerce marketplace for authentic products — coffee, spices, traditional clothing &amp; more.</p>
+        <a href="https://zembile.vercel.app/" class="home-proj-btn" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-eye"></i> View
+        </a>
+      </div>
+    </div>`;
+    
+    // Sukie
+    const sukieCard = `
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/su3.jpg" alt="Sukie Mobile App" loading="lazy"/>
+        <div class="home-proj-overlay">
+          <a href="https://expo.dev/artifacts/eas/UobRfhuaTshikVTu9CRqN.apk" target="_blank" rel="noopener noreferrer" class="home-proj-live">
+            <i class="fab fa-android"></i> Download
+          </a>
+        </div>
+        <span class="home-proj-badge mobile-badge">Mobile</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Sukie Mobile App</h3>
+        <div class="home-proj-tags">
+          <span>Flutter</span><span>Dart</span><span>SQLite</span>
+        </div>
+        <p>Offline-first shop management app — inventory, sales, profits &amp; credit book for Ethiopian businesses.</p>
+        <a href="https://expo.dev/artifacts/eas/UobRfhuaTshikVTu9CRqN.apk" class="home-proj-btn home-proj-btn--green" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-android"></i> APK
+        </a>
+      </div>
+    </div>`;
+    
+    // Zembile Admin
+    const zembileAdminCard = `
+    <div class="home-proj-card">
+      <div class="home-proj-img">
+        <img draggable="false" src="./assets/images/placeholder-web.svg" alt="Zembile Admin" loading="lazy"/>
+        <div class="home-proj-overlay">
+          <a href="https://zembile-admin.vercel.app/" target="_blank" rel="noopener noreferrer" class="home-proj-live">
+            <i class="fas fa-external-link-alt"></i> Live Demo
+          </a>
+        </div>
+        <span class="home-proj-badge web-badge">Web</span>
+      </div>
+      <div class="home-proj-body">
+        <h3>Zembile Admin Panel</h3>
+        <div class="home-proj-tags">
+          <span>React</span><span>Recharts</span><span>Dashboard</span>
+        </div>
+        <p>Full-featured dashboard for managing the Zembile marketplace — products, orders, analytics &amp; payments.</p>
+        <a href="https://zembile-admin.vercel.app/" class="home-proj-btn" target="_blank" rel="noopener noreferrer">
+          <i class="fas fa-eye"></i> View
+        </a>
+      </div>
+    </div>`;
+    
+    projectsContainer.innerHTML = ethioStaysCard + zembileCard + sukieCard + zembileAdminCard;
 
     /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
-
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
-
+    if (typeof ScrollReveal !== 'undefined') {
+        const srtop = ScrollReveal({
+            origin: 'top',
+            distance: '80px',
+            duration: 1000,
+            reset: true
+        });
+        srtop.reveal('.home-proj-card', { interval: 200 });
+    }
 }
 
-fetchData("projects").then(data => {
-    showProjects(data);
-});
+// Initialize projects immediately
+showProjects([]);
 
 // dynamic footer year
 document.addEventListener('DOMContentLoaded', function () {
@@ -198,10 +306,17 @@ VanillaTilt.init(document.querySelectorAll(".tilt"), {
 // <!-- tilt js effect ends -->
 
 
-// ===== BINARY RAIN ANIMATION =====
+/* ===== BINARY RAIN ANIMATION ===== */
 (function () {
     const canvas = document.getElementById('binaryCanvas');
     if (!canvas) return;
+    
+    // Disable on mobile for performance
+    if (window.innerWidth < 768) {
+        canvas.style.display = 'none';
+        return;
+    }
+    
     const ctx = canvas.getContext('2d');
 
     function resize() {
